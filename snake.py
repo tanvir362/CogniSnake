@@ -26,6 +26,44 @@ def move(snake, dir):
     snake.pop()
 
 
+# evaluate how near the snake is to a given target
+def score(snake, target):
+    head_x, head_y = snake[0]
+    target_x, target_y = target
+    dist = abs(head_x - target_x) + abs(head_y - target_y)
+    # dist = ((head_x - target_x) ** 2 + (head_y - target_y) ** 2) ** 0.5
+
+    return 1/dist  # closer is better    
+
+target = (8, 4)
+
+def simulate(snake, depth):
+    if snake[0] == target:
+        return 9999, ''
+    
+    if depth == 0:
+        return score(snake, target), ''
+
+    best_score = float('-inf')
+    best_dir = ''
+    for step in STEP.keys():
+        if not check_valid_move(snake, step):
+            continue
+        tail = snake[-1]
+        move(snake, step)
+        current_score, _ = simulate(snake, depth - 1)
+        if current_score > best_score:
+            best_score = current_score
+            best_dir = step
+
+        snake.append(tail)  # restore tail
+        snake.popleft()    # restore head
+
+    return best_score-1, best_dir
+        
+            
+
+
 def draw_snake():
     os.system('cls' if os.name == 'nt' else 'clear')
     for i in range(HEIGHT):
