@@ -8,7 +8,7 @@ STEP = {'L': (-1, 0), 'R': (1, 0), 'U': (0, -1), 'D': (0, 1)}
 snake = deque([(10, 5), (9, 5), (8, 5), (7, 5), (6, 5)])
 
 
-def check_valid_move(dir):
+def check_valid_move(snake, dir):
     head_x, head_y = snake[0]
     step_x, step_y = STEP[dir]
     new_head = (head_x + step_x, head_y + step_y)
@@ -18,7 +18,7 @@ def check_valid_move(dir):
         return False
     return True
 
-def move(dir):
+def move(snake, dir):
     head_x, head_y = snake[0]
     step_x, step_y = STEP[dir]
     new_head = (head_x + step_x, head_y + step_y)
