@@ -1,11 +1,12 @@
 from collections import deque
 import os
 import time
+import msvcrt
 
 WIDTH, HEIGHT = 70, 40
-STEP = {'L': (-1, 0), 'R': (1, 0), 'U': (0, -1), 'D': (0, 1)}
+STEP = {'L': (-1, 0), 'R': (1, 0), 'U': (0, -1), 'D': (0, 1), 'W': (0, 0)}
 
-snake = deque([(10, 5), (9, 5), (8, 5), (7, 5), (6, 5)])
+snake = deque([(8, 6), (8, 7), (9, 7), (10, 7), (10, 6), (10, 5), (9, 5), (8, 5), (7, 5), (6, 5), (5, 5), (4, 5), (3, 5), (2, 5), (1, 5)])
 
 
 def check_valid_move(snake, dir):
@@ -68,8 +69,12 @@ def draw_snake():
     os.system('cls' if os.name == 'nt' else 'clear')
     for i in range(HEIGHT):
         for j in range(WIDTH):
-            if (j, i) in snake:
+            if (j, i) == snake[0]:
+                print('O', end='')
+            elif (j, i) in snake:
                 print('#', end='')
+            elif (j, i) == target:
+                print('X', end='')
             else:
                 print('.', end='')
         print()
@@ -77,11 +82,20 @@ def draw_snake():
 
 if __name__ == '__main__':
     # zigzag and circular movement
-    steps = "R" * 20 + "D" * 5 + "L" * 20 + "D" * 5 + "R" * 20 + "D" * 5 + "L" * 20 + "U" * 15
+    # steps = "R" * 20 + "D" * 5 + "L" * 20 + "D" * 5 + "R" * 20 + "D" * 5 + "L" * 20 + "U" * 15
 
-    for step in steps:
-        if check_valid_move(step):
-            move(step)
-            draw_snake()
-            time.sleep(0.1)
+    paused = False
+    while snake[0] != target:
+        # Check for spacebar press to toggle pause
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            if key == b' ':
+                paused = not paused
+        if paused:
+            time.sleep(0.05)
+            continue
+        time.sleep(0.5)
+        _, step = simulate(snake, 8)
+        move(snake, step)
+        draw_snake()
 
