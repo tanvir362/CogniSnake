@@ -25,7 +25,7 @@ class Snake:
             return False
         return True
 
-    def move(self, direction):
+    def move(self, direction, grow=False):
         """Move the snake in the given direction (in-place)."""
         if direction == "W":
             return
@@ -33,7 +33,8 @@ class Snake:
         step_x, step_y = STEP[direction]
         new_head = (head_x + step_x, head_y + step_y)
         self.body.appendleft(new_head)
-        self.body.pop()
+        if not grow:
+            self.body.pop()
 
 
 # evaluate how near the snake is to the target
