@@ -2,8 +2,9 @@ from collections import deque
 import os
 import time
 import msvcrt
+from constants import WIDTH, HEIGHT
 
-WIDTH, HEIGHT = 70, 40
+
 STEP = {'L': (-1, 0), 'R': (1, 0), 'U': (0, -1), 'D': (0, 1), 'W': (0, 0)}
 
 class Snake:

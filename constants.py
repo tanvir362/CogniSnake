@@ -1,0 +1,1 @@
+WIDTH, HEIGHT = 70, 40
