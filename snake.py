@@ -30,6 +30,8 @@ class Snake:
 
     def move(self, direction):
         """Move the snake in the given direction (in-place)."""
+        if direction == "W":
+            return
         head_x, head_y = self.body[0]
         step_x, step_y = STEP[direction]
         new_head = (head_x + step_x, head_y + step_y)
@@ -54,14 +56,16 @@ def simulate(snake, depth):
     Mutates snake in-place but restores state after recursion.
     """
     if snake.body[0] == snake.target:
-        return 9999, ''
+        return 9999, 'W'
     
     if depth == 0:
-        return score(snake.body[0], snake.target), ''
+        return score(snake.body[0], snake.target), 'W'
 
     best_score = float('-inf')
     best_direction = ''
     for direction in STEP.keys():
+        if direction == 'W':
+            continue
         if not snake.check_valid_move(direction):
             continue
         
