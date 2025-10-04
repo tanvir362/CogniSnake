@@ -1,15 +1,15 @@
 # CogniSnake
 
-A tiny sandbox where a thinking snake plans ahead.
+CogniSnake simulates an intelligent snake that makes real-time decisions to navigate toward moving food. It uses simple scoring and simulation to choose its next move based on the current state of the environment.
 
-CogniSnake isn't about flashy graphics — it's about simple intelligence. The snake looks a few moves forward, scores outcomes by distance to a target, and picks the move that seems best. The code is intentionally small so you can experiment quickly with heuristics, depth, and rendering.
+## Features
 
-Why this is fun
-- Try different scoring functions and watch behavior change.
-- Increase search depth to see planning emerge (and the cost explode).
-- Swap the terminal renderer for a GUI (there's a small pygame hook included).
+- Real-time decision-making using simulation
+- Configurable planning depth and board size
+- Simple enough for experiment
+- Works in the terminal or with a simple Pygame-based GUI
 
-Getting started
+## Getting Started
 1. Clone the repository:
 
 ```bash
